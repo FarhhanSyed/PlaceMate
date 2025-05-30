@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db.js");
 const app = express();
+const User = require("./models/user.js");
+const Quiz = require("./models/quiz.js");
+const Result = require("./models/result.js");
 
 connectDB();
 
