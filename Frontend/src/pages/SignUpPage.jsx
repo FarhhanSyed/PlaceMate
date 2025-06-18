@@ -1,22 +1,28 @@
-import React, { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
-  const { login } = useContext(AuthContext);
-  let [formData, setFormData] = useState({
+const SignUpPage = () => {
+  const { signup } = useContext(AuthContext);
+  const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
   const navigate = useNavigate();
-  function handleChange(e) {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login(formData.email, formData.password);
+    await signup(formData.name, formData.email, formData.password);
     navigate("/");
   };
+
+  const handleOnChange = (e) => {
+    setFormData((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+
   return (
     <div className="px-4">
       <div className="text-center mt-15">
@@ -27,21 +33,37 @@ const LoginPage = () => {
           <h2 className="text-2xl font-bold text-gray-800 ">PlaceMate</h2>
         </div>
         <p className="text-gray-600">
-          Welcome back to your Placement preparation journey
+          Start your placement preparation journey today
         </p>
       </div>
 
       <div className="max-w-md w-full bg-white p-5 rounded-xl shadow-lg m-auto mt-4">
         <div>
           <h2 className="text-2xl font-bold text-gray-800 mb-1 text-center">
-            Sign In
+            Create Account
           </h2>
           <p className="text-sm text-gray-500 text-center">
-            Enter your credentials to acces your account
+            Enter your details to create your new account
           </p>
         </div>
 
         <form className="space-y-4 mt-3" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="name" className="text-sm font-medium text-gray-700">
+              Full Name
+            </label>
+            <br></br>
+            <input
+              className="mt-1 w-full border-1 border-gray-300 rounded-md px-3 py-1.5 placeholder:text-left"
+              type="text"
+              name="name"
+              value={formData.name}
+              placeholder="Enter your full name"
+              required
+              onChange={handleOnChange}
+            />
+          </div>
+
           <div>
             <label
               htmlFor="email"
@@ -57,7 +79,7 @@ const LoginPage = () => {
               value={formData.email}
               placeholder="Enter your email"
               required
-              onChange={handleChange}
+              onChange={handleOnChange}
             ></input>
           </div>
 
@@ -76,7 +98,7 @@ const LoginPage = () => {
               value={formData.password}
               placeholder="Enter your password"
               required
-              onChange={handleChange}
+              onChange={handleOnChange}
             ></input>
           </div>
 
@@ -94,7 +116,7 @@ const LoginPage = () => {
 
           <div>
             <button className="w-full bg-[#00966A] text-white rounded-lg px-2 py-1.5 font-normal transition-all duration-200 hover:scale-105 hover:bg-[#007A55] cursor-pointer">
-              Log In
+              Create Account
             </button>
           </div>
 
@@ -114,12 +136,12 @@ const LoginPage = () => {
           </div>
 
           <p className="text-sm text-gray-600 mt-6 mb-3 text-center">
-            Dont't have an account?
+            Already have an account?
             <a
-              href="/signup"
+              href="/login"
               className="text-green-600 font-medium ml-1 cursor-pointer"
             >
-              Sign up
+              Sign in here
             </a>
           </p>
         </form>
@@ -128,4 +150,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;

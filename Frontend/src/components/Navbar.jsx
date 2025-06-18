@@ -1,10 +1,12 @@
 import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { AuthContext, AuthProvider } from "../context/Auth";
 
 const Navbar = () => {
+  const { user, logout } = useContext(AuthContext);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     fetch("http://localhost:8080/api/test", {
       method: "GET",
@@ -16,6 +18,10 @@ const Navbar = () => {
       })
       .catch((err) => console.log("Error fetching data", err));
   }, []);
+  const handleClick = async () => {
+    await logout();
+    navigate("/login");
+  };
   return (
     <>
       <nav className="flex justify-between border h-16 items-center px-2">
@@ -31,8 +37,22 @@ const Navbar = () => {
           <Link to="/about">About</Link>
         </div>
         <div>
-          <Link to="/login">Login</Link>
-          <button>SignUp</button>
+          {user ? (
+            <>
+              <span>Hi, {user.name} </span>
+              <button
+                onClick={handleClick}
+                className="bg-[#00966A] text-white text-md p-1.5 rounded-lg cursor-pointer"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">SignUp</Link>
+            </>
+          )}
         </div>
       </nav>
     </>

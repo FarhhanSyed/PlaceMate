@@ -8,6 +8,7 @@ import About from "./pages/About.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import Layout from "./components/Layout.jsx";
+import SignUpPage from "./pages/SignUpPage.jsx";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/resources" element={<Resources />}></Route>
             <Route path="/about" element={<About />}></Route>
             <Route path="/login" element={<LoginPage />}></Route>
+            <Route path="/signup" element={<SignUpPage />}></Route>
           </Routes>
         </Layout>
       </Router>
