@@ -25,7 +25,7 @@ const SignUpPage = () => {
 
   return (
     <div className="px-4">
-      <div className="text-center mt-15">
+      <div className="text-center mt-28">
         <div className="flex justify-center items-center space-x-3 mb-3">
           <div className="bg-[#00966A] text-white text-lg p-2 rounded-lg">
             <code>{"</>"}</code>
