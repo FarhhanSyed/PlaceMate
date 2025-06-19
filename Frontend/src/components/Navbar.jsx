@@ -26,30 +26,30 @@ const Navbar = () => {
             to="/"
             className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
           ></Link>
-          <Link
-            to="/home"
+          <a
+            href="/home"
             className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
           >
             Home
-          </Link>
-          <Link
-            to="/features"
+          </a>
+          <a
+            href="#features"
             className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
           >
             Features
-          </Link>
-          <Link
-            to="/quizzes"
+          </a>
+          <a
+            href="#quizzes"
             className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
           >
             Quizzes
-          </Link>
-          <Link
-            to="/resources"
+          </a>
+          <a
+            href="#resources"
             className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
           >
             Resources
-          </Link>
+          </a>
           <Link
             to="/about"
             className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
@@ -61,7 +61,9 @@ const Navbar = () => {
         <div className="flex space-x-4">
           {user ? (
             <>
-              <span>Hi, {user.name} </span>
+              <span className="text-gray-700 font-bold text-lg">
+                Hi, {user.name}{" "}
+              </span>
               <button
                 onClick={handleClick}
                 className="bg-[#00966A] text-white text-md p-1.5 rounded-lg cursor-pointer"
