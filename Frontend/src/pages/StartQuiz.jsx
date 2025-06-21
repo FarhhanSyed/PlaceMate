@@ -1,0 +1,50 @@
+import React from "react";
+import { useParams } from "react-router-dom";
+
+const StartQuiz = () => {
+  const quizData = [
+    {
+      title: "Aptitude Quiz",
+      description:
+        "Test your quantitative aptitude, logical reasoning, and verbal ability skills.",
+      difficulty: "Medium",
+    },
+    {
+      title: "Computer Networks",
+      description:
+        "Master networking concepts, protocols, and network security fundamentals.",
+      difficulty: "Hard",
+    },
+    {
+      title: "OOPs Concepts",
+      description:
+        "Practice object-oriented programming principles and design patterns.",
+      difficulty: "Medium",
+    },
+    {
+      title: "DBMS Quiz",
+      description:
+        "Test your database management and SQL query writing skills.",
+      difficulty: "Medium",
+    },
+    {
+      title: "Data Structures",
+      description:
+        "Practice arrays, trees, graphs, and algorithm implementation.",
+      difficulty: "Hard",
+    },
+    {
+      title: "Mock Test",
+      description:
+        "Complete placement test simulation with questions from all subjects.",
+      difficulty: "Mixed",
+    },
+  ];
+  const { quizType } = useParams();
+  const quiz = quizData[quizType];
+
+  if (!quiz) return <h2>Quiz not found!</h2>;
+  return <StartQ quiz={quiz} />;
+};
+
+export default StartQuiz;
