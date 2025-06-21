@@ -50,12 +50,12 @@ const Navbar = () => {
           >
             Resources
           </a>
-          <Link
-            to="/about"
+          <a
+            href="#about"
             className="text-gray-700 hover:text-emerald-600 transition-colors font-medium"
           >
             About
-          </Link>
+          </a>
         </div>
 
         <div className="flex space-x-4">

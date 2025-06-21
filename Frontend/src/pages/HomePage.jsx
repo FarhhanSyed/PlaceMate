@@ -150,6 +150,7 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/*Features Section */}
       <section id="features" className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
@@ -366,6 +367,7 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Resources Section */}
       <section id="resources" className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
@@ -380,9 +382,7 @@ const HomePage = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <CardContent className="p-0 text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  {/* <FileText className="text-blue-600" size={32} /> */}
-                </div>
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6"></div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4">
                   Study Notes
                 </h3>
@@ -394,9 +394,7 @@ const HomePage = () => {
 
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <CardContent className="p-0 text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  {/* <Video className="text-green-600" size={32} /> */}
-                </div>
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6"></div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4">
                   Video Lectures
                 </h3>
@@ -408,9 +406,7 @@ const HomePage = () => {
 
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <CardContent className="p-0 text-center">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  {/* <BookOpen className="text-purple-600" size={32} /> */}
-                </div>
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6"></div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4">
                   Practice Sets
                 </h3>
@@ -422,9 +418,7 @@ const HomePage = () => {
 
             <Card className="p-6 hover:shadow-lg transition-shadow">
               <CardContent className="p-0 text-center">
-                <div className="w-16 h-12 rounded-lg flex items-center justify-center mr-4">
-                  {/* <Zap className="text-orange-600" size={32} /> */}
-                </div>
+                <div className="w-16 h-12 rounded-lg flex items-center justify-center mr-4"></div>
                 <h3 className="text-xl font-bold text-gray-900 mb-4">
                   Quick Revision
                 </h3>
@@ -469,7 +463,6 @@ const HomePage = () => {
                   <div className="text-center">
                     <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3">
                       Explore All Resources
-                      {/* <ArrowRight className="ml-2" size={20} /> */}
                     </button>
                   </div>
                 </div>
@@ -480,7 +473,7 @@ const HomePage = () => {
       </section>
 
       {/* Footer*/}
-      <footer id="contact" className="bg-gray-900 text-white py-16">
+      <footer id="about" className="bg-gray-900 text-white py-16">
         <div className="container mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
