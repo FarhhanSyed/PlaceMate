@@ -16,7 +16,9 @@ const Navbar = () => {
       <nav className="fixed top-0 w-full z-50 flex justify-between border-b backdrop-blur-sm border-gray-100 items-center p-6 bg-white/95">
         <div className="flex items-center">
           <div className="w-9 h-9 bg-[#00966A] text-white rounded-lg flex items-center justify-center mr-3">
-            <code>{"</>"}</code>
+            <Link to="/home">
+              <code className="cursor-pointer">{"</>"}</code>
+            </Link>
           </div>
           <span className="text-2xl font-bold text-gray-900">PlaceMate</span>
         </div>
