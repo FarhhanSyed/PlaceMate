@@ -4,13 +4,13 @@ const jwt = require("jsonwebtoken");
 const authenticateUser = async (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
-    res.status(401).json({ message: "Not authorized" });
+    return res.status(401).json({ message: "Not authorized" });
   }
   try {
     const decoded = jwt.verify(token, "jwtSecret");
     const user = await User.findById(decoded.userId);
     if (!user) {
-      res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
     req.user = user;
     next();

@@ -4,9 +4,6 @@ const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db.js");
 const app = express();
 const authRoutes = require("./routes/auth.js");
-const User = require("./models/user.js");
-const Quiz = require("./models/quiz.js");
-const Result = require("./models/result.js");
 
 connectDB();
 
