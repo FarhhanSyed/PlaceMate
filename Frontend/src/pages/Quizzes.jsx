@@ -1,6 +1,8 @@
 import React from "react";
 import QuizCard from "../components/QuizCard";
 import Profile from "../components/Profile";
+import { Link } from "react-router-dom";
+
 import {
   faNetworkWired,
   faDatabase,
@@ -71,6 +73,7 @@ const Quizzes = () => {
       quizType: "dsa",
     },
   ];
+  const mtQuizType="mt";
   return (
     <>
       <div className="mt-18">
@@ -116,10 +119,12 @@ const Quizzes = () => {
                   Complete placement test simulation with questions from all
                   subjects. Perfect for final preparation.
                 </p>
-                <button className=" mt-4 ml-5 w-210 h-9 text-white bg-emerald-600 rounded-lg cursor-pointer">
-                  <FontAwesomeIcon icon={faCirclePlay} className="mr-3" />
-                  <span className="text-sm">Start Quiz</span>
-                </button>
+                <Link to={`/quizzes/startQuiz/${mtQuizType}`}>
+                  <button className=" mt-4 ml-5 w-210 h-9 text-white bg-emerald-600 rounded-lg cursor-pointer">
+                    <FontAwesomeIcon icon={faCirclePlay} className="mr-3" />
+                    <span className="text-sm">Start Quiz</span>
+                  </button>
+                </Link>
                 <button className=" ml-2 w-20 h-9 border-1 border-gray-200 rounded-lg">
                   <FontAwesomeIcon
                     icon={faClock}
