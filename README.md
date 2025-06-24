@@ -13,5 +13,6 @@ A modern quiz platform built for placement preparation. Practice aptitude, core 
 - 🧠 Categories: Aptitude, Networking, OOPs, DBMS, DSA, and Mock Tests
 - 💻 MERN Stack: MongoDB, Express.js, React.js, Node.js
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 
