@@ -1,4 +1,5 @@
 import React from "react";
+import Navbar from "../components/navbar";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,9 +19,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 
+
 const HomePage = () => {
   return (
     <div className="min-h-screen">
+      <Navbar />
       <section id="home" className="pt-24 pb-16">
         <div className="container mx-auto py-12">
           <div className="grid md:grid-cols-2 gap-16 items-center">

@@ -2,6 +2,7 @@ import React from "react";
 import QuizCard from "../components/QuizCard";
 import Profile from "../components/Profile";
 import { Link } from "react-router-dom";
+import NavbarQuiz from "../components/NavbarQuiz";
 
 import {
   faNetworkWired,
@@ -73,9 +74,10 @@ const Quizzes = () => {
       quizType: "dsa",
     },
   ];
-  const mtQuizType="mt";
+  const mtQuizType = "mt";
   return (
     <>
+      <NavbarQuiz />
       <div className="mt-18">
         <div className="flex">
           <div>
