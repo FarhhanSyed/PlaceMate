@@ -4,6 +4,9 @@ const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db.js");
 const app = express();
 const authRoutes = require("./routes/auth.js");
+const data = require("./config/data.js");
+const Quiz = require("./models/quiz.js");
+const quizRoutes=require("./routes/quiz.js");
 
 connectDB();
 
@@ -19,6 +22,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/quizzes/startquiz",quizRoutes);
 
 app.get("/api/test", (req, res) => {
   res.json({ message: "Cors is working for placemate" });
