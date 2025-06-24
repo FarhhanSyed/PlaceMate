@@ -21,5 +21,5 @@ exports.aptitude = (req, res) => sendQuiz(res, "Aptitude Quiz", "Aptitude Quiz")
 exports.cn = (req, res) => sendQuiz(res, "Computer Networks", "Computer Networks Quiz");
 exports.oops = (req, res) => sendQuiz(res, "OOPs Concepts", "OOPs Quiz");
 exports.dbms = (req, res) => sendQuiz(res, "DBMS Quiz", "DBMS Quiz");
-exports.ds = (req, res) => sendQuiz(res, "Data Structures", "DSA Quiz");
+exports.dsa = (req, res) => sendQuiz(res, "Data Structures", "DSA Quiz");
 exports.mt = (req, res) => sendQuiz(res, "Full Mock Test", "Mock Test");

@@ -6,7 +6,7 @@ router.get("/aptitude", quizController.aptitude);
 router.get("/cn", quizController.cn);
 router.get("/dbms", quizController.dbms);
 router.get("/oops", quizController.oops);
-router.get("/ds", quizController.ds);
+router.get("/dsa", quizController.dsa);
 router.get("/mt", quizController.mt);
 
 module.exports = router;
