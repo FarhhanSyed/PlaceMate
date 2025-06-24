@@ -8,15 +8,19 @@ const LoginPage = () => {
     email: "",
     password: "",
   });
+
   const navigate = useNavigate();
+
   function handleChange(e) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(formData.email, formData.password);
     navigate("/");
   };
+  
   return (
     <div className="px-4">
       <div className="text-center mt-30">

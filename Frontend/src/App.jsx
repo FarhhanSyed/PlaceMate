@@ -10,6 +10,8 @@ import Layout from "./components/Layout.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import Features from "./pages/Features.jsx";
 import StartQuiz from "./pages/StartQuiz.jsx";
+import QuizTaking from "./components/QuizTaking.jsx";
+import ResultPage from "./pages/ResultPage.jsx";
 
 function App() {
   return (
@@ -21,7 +23,15 @@ function App() {
             <Route path="/" element={<HomePage />}></Route>
             <Route path="/home" element={<HomePage />}></Route>
             <Route path="/quizzes" element={<Quizzes />}></Route>
-            <Route path="/quizzes/startquiz/:quizType" element={<StartQuiz />} />
+            <Route
+              path="/quizzes/startquiz/:quizType"
+              element={<StartQuiz />}
+            />
+            <Route
+              path="/quizzes/startquiz/:quizType/take"
+              element={<QuizTaking />}
+            />
+            <Route path="/quizzes/:quizType/result" element={<ResultPage />} />
             <Route path="/features" element={<Features />}></Route>
             <Route path="/resources" element={<Resources />}></Route>
             <Route path="/about" element={<About />}></Route>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -16,6 +17,8 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import TrackChangesIcon from "@mui/icons-material/TrackChanges";
 
 const StartQ = ({ quiz }) => {
+  const { quizType } = useParams();
+
   if (!quiz) {
     return (
       <Box sx={{ textAlign: "center", mt: 10 }}>
@@ -166,22 +169,23 @@ const StartQ = ({ quiz }) => {
                   </li>
                 </ul>
               </Alert>
-
               <Box mt={5} textAlign="center">
-                <Button
-                  variant="contained"
-                  size="large"
-                  sx={{
-                    backgroundColor: "#059669",
-                    ":hover": { backgroundColor: "#047857" },
-                    px: 5,
-                    py: 1,
-                    fontWeight: 600,
-                    fontSize: "16px",
-                  }}
-                >
-                  Start Quiz
-                </Button>
+                <Link to={`/quizzes/startquiz/${quizType}/take`}>
+                  <Button
+                    variant="contained"
+                    size="large"
+                    sx={{
+                      backgroundColor: "#059669",
+                      ":hover": { backgroundColor: "#047857" },
+                      px: 5,
+                      py: 1,
+                      fontWeight: 600,
+                      fontSize: "16px",
+                    }}
+                  >
+                    Start Quiz
+                  </Button>
+                </Link>
                 <Typography
                   variant="body2"
                   color="text.secondary"
