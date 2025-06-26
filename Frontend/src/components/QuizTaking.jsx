@@ -25,6 +25,7 @@ const QuizTaking = () => {
   const [answers, setAnswers] = useState({});
   const [flaggedQuestions, setFlaggedQuestions] = useState(new Set());
   const [timeLeft, setTimeLeft] = useState(1600);
+  const [quiz_id, setQuiz_id] = useState(null);
   const navigate = useNavigate();
 
   const { quizType } = useParams();
@@ -32,7 +33,8 @@ const QuizTaking = () => {
   const getQuestions = async () => {
     try {
       let data = await axios.get(`/api/quizzes/startquiz/${quizType}`);
-      //   console.log(data.data.questions);
+      // console.log(data.data);
+      setQuiz_id(data.data.quiz_id);
       setQuestions(data.data.questions);
     } catch (err) {
       console.log(err);
@@ -85,10 +87,12 @@ const QuizTaking = () => {
     navigate(`/quizzes/${quizType}/result`, {
       state: {
         score,
+        quiz_id: quiz_id,
         totalQuestions: questions.length,
         correctAnswers: correct,
         incorrectAnswers: questions.length - correct,
         quizType: quizType,
+        responses: Object.values(answers),
       },
     });
   };
@@ -121,7 +125,10 @@ const QuizTaking = () => {
                 {formatTime(timeLeft)}
               </span>
             </div>
-            <button onClick={handleSubmit} className=" w-25 h-9 rounded-lg bg-emerald-600 text-white text-sm hover:cursor-pointer">
+            <button
+              onClick={handleSubmit}
+              className=" w-25 h-9 rounded-lg bg-emerald-600 text-white text-sm hover:cursor-pointer"
+            >
               Submit Quiz
             </button>
           </div>

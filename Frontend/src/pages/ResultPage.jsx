@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Box, Typography, Button, Grid, Paper, Divider } from "@mui/material";
 import ReplayIcon from "@mui/icons-material/Replay";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -7,6 +7,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import TrackChangesIcon from "@mui/icons-material/TrackChanges";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import axios from "axios";
 
 const ResultPage = () => {
   const location = useLocation();
@@ -17,13 +18,31 @@ const ResultPage = () => {
     totalQuestions = 0,
     correctAnswers = 0,
     incorrectAnswers = 0,
-    quizType = "quiz",
+    quizType: stateQuizType,
     timeSpent = 2500,
+    quiz_id,
+    responses,
   } = location.state || {};
+  const quizType = stateQuizType || useParams.quizType || "";
 
   useEffect(() => {
-    // console.log("SCORE:",);
-    console.log("correct:", location.state);
+    const saveResult = async () => {
+      try {
+        await axios.post("/api/quizzes/results", {
+          quiz_id,
+          score,
+          responses,
+        });
+      } catch (err) {
+        console.log("Failed to save result:", err);
+      }
+    };
+    saveResult();
+  }, [quiz_id, score, responses]);
+
+  useEffect(() => {
+    console.log("SCORE:");
+    // console.log("correct:", location.state);
   }, [location.state]);
 
   const minutesSpent = Math.floor(timeSpent / 60);
