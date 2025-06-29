@@ -1,5 +1,7 @@
 import React from "react";
 import Navbar from "../components/navbar";
+import { useAuth } from "../context/Auth";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -19,8 +21,18 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 
-
 const HomePage = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleExploreClick = async () => {
+    if (user) {
+      navigate("/quizzes");
+    } else {
+      navigate("/login", { state: { from: "/quizzes" } });
+    }
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -360,12 +372,12 @@ const HomePage = () => {
             </Card>
           </div>
           <div className="text-center mt-5">
-            <Link to="/quizzes">
-              <button className="bg-emerald-600 rounded-xl hover:bg-emerald-700 text-white px-8 py-3 text-lg cursor-pointer">
-                <FontAwesomeIcon icon={faCirclePlay} /> &nbsp; Explore All
-                Quizzes
-              </button>
-            </Link>
+            <button
+              onClick={handleExploreClick}
+              className="bg-emerald-600 rounded-xl hover:bg-emerald-700 text-white px-8 py-3 text-lg cursor-pointer"
+            >
+              <FontAwesomeIcon icon={faCirclePlay} /> &nbsp; Explore All Quizzes
+            </button>
           </div>
         </div>
       </section>
