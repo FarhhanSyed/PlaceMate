@@ -6,8 +6,8 @@ const app = express();
 const authRoutes = require("./routes/auth.js");
 const quizRoutes = require("./routes/quiz.js");
 const resultRoute = require("./routes/result.js");
-const data = require("./config/data.js");
 const Quiz = require("./models/quiz.js");
+const data = require("./config/data.js");
 
 connectDB();
 
@@ -21,7 +21,12 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
-
+const ddd=Object.values(data);
+async function initialize() {
+    const dd=await Quiz.insertMany(ddd);
+    console.log("success");
+}
+initialize();
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/quizzes/startquiz", quizRoutes);
 app.use("/api/quizzes", resultRoute);
