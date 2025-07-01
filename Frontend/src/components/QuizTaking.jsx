@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -34,16 +34,15 @@ const QuizTaking = () => {
 
   const { quizType } = useParams();
 
-  const getQuestions = async () => {
+  const getQuestions = useCallback(async () => {
     try {
       let data = await axios.get(`/api/quizzes/startquiz/${quizType}`);
-      // console.log(data.data);
       setQuiz_id(data.data.quiz_id);
       setQuestions(data.data.questions);
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [quizType]);
 
   useEffect(() => {
     setStartTime(Date.now());
@@ -76,16 +75,7 @@ const QuizTaking = () => {
 
   useEffect(() => {
     getQuestions();
-  }, []);
-
-  useEffect(() => {
-    if (timeLeft > 0) {
-      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timer);
-    } else {
-      handleSubmit();
-    }
-  }, [timeLeft]);
+  }, [getQuestions]);
 
   const formatTime = (seconds) => {
     const hours = Math.floor(seconds / 3600);
@@ -110,7 +100,7 @@ const QuizTaking = () => {
     setFlaggedQuestions(updatedFlags);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     const endTime = Date.now();
     const timeSpent = Math.floor((endTime - startTime) / 1000);
     let attempted = 0;
@@ -141,7 +131,17 @@ const QuizTaking = () => {
         notAttempted,
       },
     });
-  };
+  }, [answers, questions, quiz_id, quizType, navigate, startTime]);
+
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
+      return () => clearTimeout(timer);
+    } else {
+      handleSubmit();
+    }
+  }, [timeLeft, handleSubmit]);
+  
   if (questions.length === 0) {
     return (
       <Box
