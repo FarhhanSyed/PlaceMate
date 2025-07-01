@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import {
   Button,
@@ -20,12 +21,15 @@ import { ChevronLeft, ChevronRight, Flag, CheckCircle } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const QuizTaking = () => {
+  const location = useLocation();
+  const defaultTime = location.state?.timeLimit || 1600;
   const [questions, setQuestions] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [flaggedQuestions, setFlaggedQuestions] = useState(new Set());
-  const [timeLeft, setTimeLeft] = useState(1600);
+  const [timeLeft, setTimeLeft] = useState(defaultTime);
   const [quiz_id, setQuiz_id] = useState(null);
+  const [startTime, setStartTime] = useState(0);
   const navigate = useNavigate();
 
   const { quizType } = useParams();
@@ -40,6 +44,35 @@ const QuizTaking = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    setStartTime(Date.now());
+  }, []);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const confirmationMessage =
+        "You cannot leave the quiz until you submit. Please finish or submit the quiz.";
+      alert(confirmationMessage);
+      window.history.pushState(null, "", window.location.pathname);
+    };
+    window.history.pushState(null, "", window.location.pathname);
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   useEffect(() => {
     getQuestions();
@@ -78,9 +111,19 @@ const QuizTaking = () => {
   };
 
   const handleSubmit = () => {
+    const endTime = Date.now();
+    const timeSpent = Math.floor((endTime - startTime) / 1000);
+    let attempted = 0;
+    let notAttempted = 0;
+
     let correct = 0;
     questions.forEach((q, i) => {
       if (answers[i] === q.correctAnswerIndex) correct++;
+      if (answers[i] === undefined) {
+        notAttempted++;
+      } else {
+        attempted++;
+      }
     });
 
     const score = Math.round((correct / questions.length) * 100);
@@ -90,9 +133,12 @@ const QuizTaking = () => {
         quiz_id: quiz_id,
         totalQuestions: questions.length,
         correctAnswers: correct,
-        incorrectAnswers: questions.length - correct,
+        incorrectAnswers: attempted - correct,
         quizType: quizType,
         responses: Object.values(answers),
+        timeSpent: timeSpent,
+        attempted,
+        notAttempted,
       },
     });
   };

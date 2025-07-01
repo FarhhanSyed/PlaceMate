@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Box, Typography, Button, Grid, Paper, Divider } from "@mui/material";
+import { faClock, faDotCircle } from "@fortawesome/free-solid-svg-icons";
 import ReplayIcon from "@mui/icons-material/Replay";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -8,10 +9,12 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import TrackChangesIcon from "@mui/icons-material/TrackChanges";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ResultPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const timeSpent = location.state.timeSpent;
 
   const {
     score = 0,
@@ -19,7 +22,8 @@ const ResultPage = () => {
     correctAnswers = 0,
     incorrectAnswers = 0,
     quizType: stateQuizType,
-    timeSpent = 2500,
+    attempted,
+    notAttempted,
     quiz_id,
     responses,
   } = location.state || {};
@@ -40,12 +44,7 @@ const ResultPage = () => {
     saveResult();
   }, [quiz_id, score, responses]);
 
-  useEffect(() => {
-    console.log("SCORE:");
-    // console.log("correct:", location.state);
-  }, [location.state]);
-
-  const minutesSpent = Math.floor(timeSpent / 60);
+  // const minutesSpent = Math.floor(timeSpent / 60);
   const accuracyRate = totalQuestions
     ? Math.round((correctAnswers / totalQuestions) * 100)
     : 0;
@@ -131,29 +130,31 @@ const ResultPage = () => {
               </Grid>
               <Grid item xs={6} sm={3} sx={{ height: "20px", width: "180px" }}>
                 <Paper sx={{ py: 2, bgcolor: "#e3f2fd" }} elevation={0}>
-                  <AccessTimeIcon
-                    color="primary"
-                    sx={{ color: "#2563EB", fontSize: "28px" }}
+                  <FontAwesomeIcon
+                    icon={faDotCircle}
+                    size="lg"
+                    className="text-[#2563EB]"
                   />
                   <Typography variant="h6" sx={{ color: "#2563EB" }}>
-                    {minutesSpent}m
+                    {attempted}
                   </Typography>
                   <Typography variant="body2" sx={{ color: "black" }}>
-                    Time Spent
+                    Attempted
                   </Typography>
                 </Paper>
               </Grid>
               <Grid item xs={6} sm={3} sx={{ width: "180px" }}>
                 <Paper sx={{ py: 2, bgcolor: "#FAF5FF" }} elevation={0}>
-                  <TrackChangesIcon
-                    color="secondary"
-                    sx={{ color: "#9333EA", fontSize: "28px" }}
+                  <FontAwesomeIcon
+                    icon={faClock}
+                    size="lg"
+                    className="text-[#9333EA]"
                   />
                   <Typography variant="h6" sx={{ color: "#9333EA" }}>
-                    {totalQuestions}
+                    {notAttempted}
                   </Typography>
                   <Typography variant="body2" sx={{ color: "black" }}>
-                    Total Questions
+                    Not Attempted
                   </Typography>
                 </Paper>
               </Grid>

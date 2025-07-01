@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -18,6 +19,13 @@ import TrackChangesIcon from "@mui/icons-material/TrackChanges";
 
 const StartQ = ({ quiz }) => {
   const { quizType } = useParams();
+  const navigate = useNavigate();
+
+  const handleStart = () => {
+    navigate(`/quizzes/startquiz/${quizType}/take`, {
+      state: { timeLimit: quiz.duration * 60 },
+    });
+  };
 
   if (!quiz) {
     return (
@@ -89,7 +97,7 @@ const StartQ = ({ quiz }) => {
                   >
                     <HelpIcon sx={{ color: "#059669", fontSize: 30 }} />
                     <Typography variant="h5" fontWeight="bold" mt={1}>
-                      {quiz.questions || 350}
+                      {quiz.noOfQuestions}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       Questions
@@ -170,22 +178,22 @@ const StartQ = ({ quiz }) => {
                 </ul>
               </Alert>
               <Box mt={5} textAlign="center">
-                <Link to={`/quizzes/startquiz/${quizType}/take`}>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    sx={{
-                      backgroundColor: "#059669",
-                      ":hover": { backgroundColor: "#047857" },
-                      px: 5,
-                      py: 1,
-                      fontWeight: 600,
-                      fontSize: "16px",
-                    }}
-                  >
-                    Start Quiz
-                  </Button>
-                </Link>
+                <Button
+                  onClick={handleStart}
+                  variant="contained"
+                  size="large"
+                  sx={{
+                    backgroundColor: "#059669",
+                    ":hover": { backgroundColor: "#047857" },
+                    px: 5,
+                    py: 1,
+                    fontWeight: 600,
+                    fontSize: "16px",
+                  }}
+                >
+                  Start Quiz
+                </Button>
+
                 <Typography
                   variant="body2"
                   color="text.secondary"
