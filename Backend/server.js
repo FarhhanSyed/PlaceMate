@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
+}
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -6,14 +9,19 @@ const app = express();
 const authRoutes = require("./routes/auth.js");
 const quizRoutes = require("./routes/quiz.js");
 const resultRoute = require("./routes/result.js");
-const Quiz = require("./models/quiz.js");
-const data = require("./config/data.js");
 
-connectDB();
+// connectDB().then(async () => {
+//   const quizCount = await Quiz.countDocuments();
+//   if (quizCount === 0) {
+//     const ddd = Object.values(data);
+//     await Quiz.insertMany(ddd);
+//     console.log("Quiz data inserted to Atlas!");
+//   }
+// });
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -21,13 +29,6 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
-
-// const ddd=Object.values(data);
-// async function initialize() {
-//     const dd=await Quiz.insertMany(ddd);
-//     console.log("success");
-// }
-// initialize();
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/quizzes/startquiz", quizRoutes);
@@ -38,7 +39,7 @@ app.get("/api/test", (req, res) => {
   res.send("Hello");
 });
 
-let port = 8080;
+let port = process.env.PORT || 8080;
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });

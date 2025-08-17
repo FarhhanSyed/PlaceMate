@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
-  const mongoURL = "mongodb://127.0.0.1:27017/placemate";
+  const mongoURL = process.env.MONGO_URL;
   await mongoose.connect(mongoURL);
 };
 
