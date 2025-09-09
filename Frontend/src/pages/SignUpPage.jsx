@@ -3,7 +3,7 @@ import { AuthContext } from "../context/Auth";
 import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
-  const { signup } = useContext(AuthContext);
+  const { signup, authError, user } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,7 +14,9 @@ const SignUpPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await signup(formData.name, formData.email, formData.password);
-    navigate("/");
+    if (user) {
+      navigate("/");
+    }
   };
 
   const handleOnChange = (e) => {
@@ -113,7 +115,11 @@ const SignUpPage = () => {
               Forgot Password?
             </a>
           </div>
-
+          {authError && (
+            <div className="text-red-600 text-sm text-center mb-2">
+              {authError}
+            </div>
+          )}
           <div>
             <button className="w-full bg-[#00966A] text-white rounded-lg px-2 py-1.5 font-normal transition-all duration-200 hover:scale-105 hover:bg-[#007A55] cursor-pointer">
               Create Account

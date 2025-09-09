@@ -3,7 +3,7 @@ import { AuthContext } from "../context/Auth";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const { login } = useContext(AuthContext);
+  const { login, authError, user } = useContext(AuthContext);
   let [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -21,7 +21,9 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await login(formData.email, formData.password);
-    navigate(from, { replace: true });
+    if (user) {
+      navigate(from, { replace: true });
+    }
   };
 
   return (
@@ -98,6 +100,11 @@ const LoginPage = () => {
               Forgot Password?
             </a>
           </div>
+          {authError && (
+            <div className="text-red-600 text-sm text-center mb-2">
+              {authError}
+            </div>
+          )}
 
           <div>
             <button className="w-full bg-[#00966A] text-white rounded-lg px-2 py-1.5 font-normal transition-all duration-200 hover:scale-105 hover:bg-[#007A55] cursor-pointer">
