@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db.js");
 const app = express();
@@ -7,14 +8,14 @@ const authRoutes = require("./routes/auth.js");
 const quizRoutes = require("./routes/quiz.js");
 const resultRoute = require("./routes/result.js");
 
-// connectDB().then(async () => {
-//   const quizCount = await Quiz.countDocuments();
-//   if (quizCount === 0) {
-//     const ddd = Object.values(data);
-//     await Quiz.insertMany(ddd);
-//     console.log("Quiz data inserted to Atlas!");
-//   }
-// });
+dotenv.config();
+connectDB()
+  .then(() => {
+    console.log("Database Connected");
+  })
+  .catch((err) => {
+    console.log("Connection failed", err);
+  });
 
 app.use(
   cors({
