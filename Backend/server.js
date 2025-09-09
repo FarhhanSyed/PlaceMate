@@ -1,6 +1,3 @@
-if (process.env.NODE_ENV != "production") {
-  require("dotenv").config();
-}
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -21,7 +18,7 @@ const resultRoute = require("./routes/result.js");
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: "http://localhost:5713",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -39,7 +36,7 @@ app.get("/api/test", (req, res) => {
   res.send("Hello");
 });
 
-let port = process.env.PORT || 8080;
+let port = 8080;
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
 });
